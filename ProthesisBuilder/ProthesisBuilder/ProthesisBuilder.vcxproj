@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\main.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6650E58C-ABF7-497A-89F0-851284F0D39E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ProthesisBuilder</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\CGAL\include\;C:\boost_1_41_0;C:\CGAL-4.5.2\auxiliary\gmp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\CGAL\lib;C:\boost_1_41_0\stage\lib;C:\CGAL-4.5.2\auxiliary\gmp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmpfr-4.lib;libgmp-10.lib;libboost_date_time-vc100-mt-1_41.lib;libboost_date_time-vc100-mt-gd-1_41.lib;libboost_date_time-vc100-mt-gd.lib;libboost_date_time-vc100-mt.lib;libboost_filesystem-vc100-mt-1_41.lib;libboost_filesystem-vc100-mt-gd-1_41.lib;libboost_filesystem-vc100-mt-gd.lib;libboost_filesystem-vc100-mt.lib;libboost_graph-vc100-mt-1_41.lib;libboost_graph-vc100-mt-gd-1_41.lib;libboost_graph-vc100-mt-gd.lib;libboost_graph-vc100-mt.lib;libboost_iostreams-vc100-mt-1_41.lib;libboost_iostreams-vc100-mt-gd-1_41.lib;libboost_iostreams-vc100-mt-gd.lib;libboost_iostreams-vc100-mt.lib;libboost_math_c99-vc100-mt-1_41.lib;libboost_math_c99-vc100-mt-gd-1_41.lib;libboost_math_c99-vc100-mt-gd.lib;libboost_math_c99-vc100-mt.lib;libboost_math_c99f-vc100-mt-1_41.lib;libboost_math_c99f-vc100-mt-gd-1_41.lib;libboost_math_c99f-vc100-mt-gd.lib;libboost_math_c99f-vc100-mt.lib;libboost_math_c99l-vc100-mt-1_41.lib;libboost_math_c99l-vc100-mt-gd-1_41.lib;libboost_math_c99l-vc100-mt-gd.lib;libboost_math_c99l-vc100-mt.lib;libboost_math_tr1-vc100-mt-1_41.lib;libboost_math_tr1-vc100-mt-gd-1_41.lib;libboost_math_tr1-vc100-mt-gd.lib;libboost_math_tr1-vc100-mt.lib;libboost_math_tr1f-vc100-mt-1_41.lib;libboost_math_tr1f-vc100-mt-gd-1_41.lib;libboost_math_tr1f-vc100-mt-gd.lib;libboost_math_tr1f-vc100-mt.lib;libboost_math_tr1l-vc100-mt-1_41.lib;libboost_math_tr1l-vc100-mt-gd-1_41.lib;libboost_math_tr1l-vc100-mt-gd.lib;libboost_math_tr1l-vc100-mt.lib;libboost_prg_exec_monitor-vc100-mt-1_41.lib;libboost_prg_exec_monitor-vc100-mt-gd-1_41.lib;libboost_prg_exec_monitor-vc100-mt-gd.lib;libboost_prg_exec_monitor-vc100-mt.lib;libboost_program_options-vc100-mt-1_41.lib;libboost_program_options-vc100-mt-gd-1_41.lib;libboost_program_options-vc100-mt-gd.lib;libboost_program_options-vc100-mt.lib;libboost_regex-vc100-mt-1_41.lib;libboost_regex-vc100-mt-gd-1_41.lib;libboost_regex-vc100-mt-gd.lib;libboost_regex-vc100-mt.lib;libboost_serialization-vc100-mt-1_41.lib;libboost_serialization-vc100-mt-gd-1_41.lib;libboost_serialization-vc100-mt-gd.lib;libboost_serialization-vc100-mt.lib;libboost_signals-vc100-mt-1_41.lib;libboost_signals-vc100-mt-gd-1_41.lib;libboost_signals-vc100-mt-gd.lib;libboost_signals-vc100-mt.lib;libboost_system-vc100-mt-1_41.lib;libboost_system-vc100-mt-gd-1_41.lib;libboost_system-vc100-mt-gd.lib;libboost_system-vc100-mt.lib;libboost_test_exec_monitor-vc100-mt-1_41.lib;libboost_test_exec_monitor-vc100-mt-gd-1_41.lib;libboost_test_exec_monitor-vc100-mt-gd.lib;libboost_test_exec_monitor-vc100-mt.lib;libboost_thread-vc100-mt-1_41.lib;libboost_thread-vc100-mt-gd-1_41.lib;libboost_thread-vc100-mt-gd.lib;libboost_thread-vc100-mt.lib;libboost_unit_test_framework-vc100-mt-1_41.lib;libboost_unit_test_framework-vc100-mt-gd-1_41.lib;libboost_unit_test_framework-vc100-mt-gd.lib;libboost_unit_test_framework-vc100-mt.lib;libboost_wave-vc100-mt-1_41.lib;libboost_wave-vc100-mt-gd-1_41.lib;libboost_wave-vc100-mt-gd.lib;libboost_wave-vc100-mt.lib;libboost_wserialization-vc100-mt-1_41.lib;libboost_wserialization-vc100-mt-gd-1_41.lib;libboost_wserialization-vc100-mt-gd.lib;libboost_wserialization-vc100-mt.lib;CGAL-vc100-mt-gd-4.5.2.lib;CGAL_Core-vc100-mt-gd-4.5.2.lib;CGAL_ImageIO-vc100-mt-gd-4.5.2.lib;CGAL_Qt4-vc100-mt-gd-4.5.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
