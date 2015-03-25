@@ -18,6 +18,10 @@
 typedef std::string string;
 typedef std::ifstream ifstream;
 
+// ----------------------------------------------------------------------------
+// Private types
+// ----------------------------------------------------------------------------
+
 typedef CGAL::Cartesian<double> Kernel;
 typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
 typedef Polyhedron::Facet_iterator Facet_iterator;
