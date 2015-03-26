@@ -1,4 +1,4 @@
-#define _SCL_SECURE_NO_WARNINGS
+#define _SCL_SECURE_NO_WARNINGS //The program won't compile without this string
 
 #include <CGAL/Cartesian.h>
 #include <CGAL/Polyhedron_3.h>
@@ -6,20 +6,18 @@
 #include <CGAL/Parameterization_polyhedron_adaptor_3.h>
 #include <CGAL/parameterize.h>
 #include <CGAL/Simple_cartesian.h>
-
 #include <CGAL/AABB_tree.h>
 #include <CGAL/AABB_traits.h>
 #include <CGAL/AABB_polyhedron_triangle_primitive.h>
 #include <CGAL/aff_transformation_tags.h>
 
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include "stdio.h"
+
 typedef std::string string;
 typedef std::ifstream ifstream;
-
 typedef CGAL::Cartesian<double> Kernel;
 typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
 typedef Polyhedron::Facet_iterator Facet_iterator;
@@ -30,13 +28,13 @@ typedef Kernel::Point_3 Point_3;
 typedef Kernel::Vector_3 Vector_3;
 typedef Polyhedron::HalfedgeDS HalfedgeDS;
 typedef Kernel::Ray_3 Ray;
-
 typedef CGAL::AABB_polyhedron_triangle_primitive<Kernel, Polyhedron> Primitive;
 typedef CGAL::AABB_traits<Kernel, Primitive> Traits;
 typedef CGAL::AABB_tree<Traits> Tree;
 typedef boost::optional< Tree::Intersection_and_primitive_id<Ray>::Type > Ray_intersection;
 typedef CGAL::Translation Translation;
 typedef CGAL::Aff_transformation_3<Kernel> Aff_transformation_3;
+
 // A modifier creating a triangle with the incremental builder.
 template<class HDS>
 class polyhedron_builder : public CGAL::Modifier_base<HDS> {
@@ -130,28 +128,24 @@ void create_big_triangle(Polyhedron &big_triangle)
 	big_triangle.delegate(builder);
 }
 
-void get_projection_surface(Polyhedron &surface_a, Polyhedron &surface_b, Vector_3 &vector, Polyhedron &rezult)
+//surface_a will be projected onto surface_b with projection_vector and the output surface will be written into surface_a
+void get_projection_surface(Polyhedron &surface_a, Polyhedron &surface_b, Vector_3 &projection_vector)
 {
-	std::vector<double> coords;
-	std::vector<int> tris;
-	Point_3 intersection_point;
-	int i = 0;
 	// constructs AABB tree
-	Tree tree(surface_b.facets_begin(), surface_b.facets_end());
+	Tree jaw_geometry_tree(surface_b.facets_begin(), surface_b.facets_end());
 
 	Point_iterator pi = surface_a.points_begin();
 	for (Vertex_iterator vi = surface_a.vertices_begin(); vi != surface_a.vertices_end(); vi++)
 	{
-		Ray ray(vi->point(), vector);
+		Ray ray(vi->point(), projection_vector);
 		// computes first encountered intersection with segment query
 		// (generally a point)
-		//Ray_intersection intersection = tree.any_intersection(ray);
 		std::vector<Ray_intersection> all_intersections;
 		std::vector<Point_3> all_intersection_points;
 		std::vector<double> distances;
-		if (tree.do_intersect(ray))
+		if (jaw_geometry_tree.do_intersect(ray))
 		{
-			tree.all_intersections(ray, std::back_inserter(all_intersections));
+			jaw_geometry_tree.all_intersections(ray, std::back_inserter(all_intersections));
 			for (int i = 0; i < all_intersections.size(); i++)
 			{
 				all_intersection_points.push_back(*boost::get<Point_3>(&(all_intersections[i]->first)));
@@ -165,25 +159,14 @@ void get_projection_surface(Polyhedron &surface_a, Polyhedron &surface_b, Vector
 			}
 
 			int index_of_closest_point = std::min_element(distances.begin(), distances.end()) - distances.begin();
-			Vector_3 tranclation_vector(vi->point(), all_intersection_points[index_of_closest_point]);
-			Aff_transformation_3 translation(CGAL::TRANSLATION, tranclation_vector);
-			//std::cout << "before affine transform" << std::endl;
-			//std::cout << *pi << std::endl;
+			Vector_3 translation_vector(vi->point(), all_intersection_points[index_of_closest_point]);
+			Aff_transformation_3 translation(CGAL::TRANSLATION, translation_vector);
 			Point_iterator end = pi;
 			end++;
 			std::transform(pi, end, pi, translation);
-			//std::cout << "after affine transform" << std::endl;
-			//std::cout << *pi << std::endl;
-			//std::transform(pi, pi, pi, translation);
-			/*coords.push_back(all_intersection_points[index_of_closest_point].x());
-			coords.push_back(all_intersection_points[index_of_closest_point].y());
-			coords.push_back(all_intersection_points[index_of_closest_point].z());
-			tris.push_back(i++);*/
 		}
 		pi++;
 	}
-	/*polyhedron_builder<HalfedgeDS> builder( coords, tris );
-	rezult.delegate( builder );*/
 }
 
 int read_my_OFF(const char* file_name, Polyhedron &rezult)
@@ -221,20 +204,6 @@ int read_my_OFF(const char* file_name, Polyhedron &rezult)
 
 int main(int argc, char * argv[])
 {
-	/*Vector_3 tranclation_vector(1, 1, 1);
-	Aff_transformation_3 translation(CGAL::TRANSLATION, tranclation_vector);
-	std::vector<Point_3> points;
-	for(int i = 0; i < 10; i++)
-	{
-	Point_3 point(i, i, i);
-	points.push_back(point);
-	std::cout << points[i] << std::endl;
-	}
-	std::transform(points.begin(), ++points.begin(), points.begin(), translation);
-	for(int i = 0; i < 10; i++)
-	{
-	std::cout << points[i] << std::endl;
-	}*/
 	// decode parameters
 	if (argc - 1 != 2)
 	{
@@ -266,21 +235,13 @@ int main(int argc, char * argv[])
 	os << big_triangle;
 	os.close();
 
-	Vector_3 vector(0.2, 0.2, -0.9);//rename
-	Polyhedron rezult;
-	get_projection_surface(prothesis_part, jaw, vector, rezult);
+	Vector_3 projection_vector(0.2, 0.2, -0.9);
+	get_projection_surface(prothesis_part, jaw, projection_vector);
 
 	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult.off");
 	os << prothesis_part;
 	os.close();
 
-	// write the polyhedron out as a .OFF file
-	//os.open("some_prothesis_geometry.off");
-	//os << mesh2;
-	//os.close();
-	//os.open("big_triangle.off");
-	//os << big_triangle;
-	//os.close();
 	std::cout << "Done";
 
 	return 0;
