@@ -92,7 +92,7 @@ void get_facets_with_equal_z_and_specified_tolerance(double z, double tolerance,
 				counter_of_points_with_equal_z++;
 			}
 		} while (++v != f->facet_begin());
-		if (counter_of_points_with_equal_z == 3)
+		if (counter_of_points_with_equal_z >= 1)
 		{
 			v = f->facet_begin();
 			do
