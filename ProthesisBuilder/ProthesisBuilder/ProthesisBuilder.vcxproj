@@ -72,12 +72,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Program Files\CGAL\include\;C:\boost_1_57_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Program Files\CGAL\lib;C:\boost_1_57_0\lib32-msvc-12.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CGAL_Core-vc120-mt-gd-4.5.2.lib;CGAL_ImageIO-vc120-mt-gd-4.5.2.lib;CGAL_Qt4-vc120-mt-gd-4.5.2.lib;CGAL-vc120-mt-gd-4.5.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
