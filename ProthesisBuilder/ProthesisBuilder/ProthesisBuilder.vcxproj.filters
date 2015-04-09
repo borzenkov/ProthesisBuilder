@@ -27,6 +27,9 @@
     <ClCompile Include="ProthesisInputData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="STLreader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Prothesis.h">

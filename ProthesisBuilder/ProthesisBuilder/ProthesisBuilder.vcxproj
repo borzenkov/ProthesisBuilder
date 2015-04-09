@@ -88,6 +88,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prothesis.cpp" />
     <ClCompile Include="ProthesisInputData.cpp" />
+    <ClCompile Include="STLreader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Prothesis.h" />
