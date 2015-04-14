@@ -1,13 +1,16 @@
-// MedBox
-// Prothesis.cpp
-// (c) Victor Borzenkov 2014
+ MedBox
+ Prothesis.cpp
+ (c) Victor Borzenkov 2014
+
+#define _SCL_SECURE_NO_WARNINGS //The program won't compile without this string
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "Prothesis.h"
 
 void ProthesisBuilder::Build()
 {
-	// TODO: wrap all debug output in ifs 
-	// TODO: and create a boolean field in this class for debug mode
+	 TODO: wrap all debug output in ifs 
+	 TODO: and create a boolean field in this class for debug mode
 	std::cout << "MakePlate started" << std::endl;
 	MakePlate();
 	std::cout << "MakePlate ended" << std::endl;
@@ -28,10 +31,10 @@ void ProthesisBuilder::Build()
 	UnitePlateJunctionAndHead();
 	std::cout << "UnitePlateJunctionAndHead ended" << std::endl;
 	std::cout << "MakeFillets started" << std::endl;
-	//MakeFillets();
+	MakeFillets();
 	std::cout << "MakeFillets ended" << std::endl;
 	std::cout << "MakeHoles started" << std::endl;
-	//MakeHoles(Prothesis);
+	MakeHoles(Prothesis);
 	std::cout << "MakeHoles ended";
 }
 
@@ -57,15 +60,15 @@ void ProthesisBuilder::LightBuild()
 	std::cout << "MakeJunction started" << std::endl;
 	MakeJunction();
 	std::cout << "MakeJunction ended" << std::endl;
-	///*std::cout << "UnitePlateAndJunction started" << std::endl;
-	//UnitePlateAndJunction();
-	//std::cout << "UnitePlateAndJunction ended" << std::endl;*/
-	//std::cout << "UnitePlateAndJunction started" << std::endl;
-	//UniteJunctionAndHead();
-	//std::cout << "UnitePlateAndJunction ended" << std::endl;
-	//std::cout << "MakeFillets started" << std::endl;
-	////MakeFillets(Plate);
-	//std::cout << "MakeFillets ended" << std::endl;
+	/*std::cout << "UnitePlateAndJunction started" << std::endl;
+	UnitePlateAndJunction();
+	std::cout << "UnitePlateAndJunction ended" << std::endl;*/
+	std::cout << "UnitePlateAndJunction started" << std::endl;
+	UniteJunctionAndHead();
+	std::cout << "UnitePlateAndJunction ended" << std::endl;
+	std::cout << "MakeFillets started" << std::endl;
+	//MakeFillets(Plate);
+	std::cout << "MakeFillets ended" << std::endl;
 }
 
 void ProthesisBuilder::TestBuild()
@@ -128,41 +131,41 @@ void ProthesisBuilder::UnitePlateAndJunction()
 
 void ProthesisBuilder::MakeFillets(TopoDS_Shape &x)
 {
-//	// Body : Apply Fillets
-//	BRepFilletAPI_MakeFillet mkFillet(PlateAndJunction);
-//	TopExp_Explorer anEdgeExplorer(PlateAndJunction, TopAbs_EDGE);
-//	//for (int i = 0; i < 10; i++)
-//	//{
-//	//	TopoDS_Edge anEdge = TopoDS::Edge(anEdgeExplorer.Current());
-//	//	//Add edge to fillet algorithm
-//	//	if(InputParams->plateFillets[i])
-//	//		mkFillet.Add(InputParams->plateFillets[i], anEdge);
-//	//	anEdgeExplorer.Next();
-//	//}
-//	////PlateAndJunction = mkFillet.Shape();
-//
-//	////BRepFilletAPI_MakeFillet mkFillet1(PlateAndJunction);
-//	////TopExp_Explorer anEdgeExplorer1(PlateAndJunction, TopAbs_EDGE);
-//	//for (int i = 0; i < 4; i++)
-//	//{
-//	//	TopoDS_Edge anEdge = TopoDS::Edge(anEdgeExplorer.Current());
-//	//	//Add edge to fillet algorithm
-//	//	if(InputParams->plateFillets2[i])
-//	//		mkFillet.Add(InputParams->plateFillets2[i], anEdge);
-//	//	anEdgeExplorer.Next();
-//	//}
-//	//PlateAndJunction = mkFillet.Shape();
-//
-//	double plateFillets[100]; 
-//	memset(plateFillets, /*0.0*/InputParams->k, sizeof(plateFillets));
-//	plateFillets[0]
-//		= plateFillets[1]
-//		= plateFillets[4]
-//		= plateFillets[9]
-//		= InputParams->h; // for big fillets
-//	plateFillets[10]
-//		= plateFillets[13]
-//		= InputParams->k; // for small fillets
+	// Body : Apply Fillets
+	BRepFilletAPI_MakeFillet mkFillet(PlateAndJunction);
+	TopExp_Explorer anEdgeExplorer(PlateAndJunction, TopAbs_EDGE);
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	TopoDS_Edge anEdge = TopoDS::Edge(anEdgeExplorer.Current());
+	//	//Add edge to fillet algorithm
+	//	if(InputParams->plateFillets[i])
+	//		mkFillet.Add(InputParams->plateFillets[i], anEdge);
+	//	anEdgeExplorer.Next();
+	//}
+	////PlateAndJunction = mkFillet.Shape();
+
+	////BRepFilletAPI_MakeFillet mkFillet1(PlateAndJunction);
+	////TopExp_Explorer anEdgeExplorer1(PlateAndJunction, TopAbs_EDGE);
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	TopoDS_Edge anEdge = TopoDS::Edge(anEdgeExplorer.Current());
+	//	//Add edge to fillet algorithm
+	//	if(InputParams->plateFillets2[i])
+	//		mkFillet.Add(InputParams->plateFillets2[i], anEdge);
+	//	anEdgeExplorer.Next();
+	//}
+	//PlateAndJunction = mkFillet.Shape();
+
+	double plateFillets[100]; 
+	memset(plateFillets, /*0.0*/InputParams->k, sizeof(plateFillets));
+	plateFillets[0]
+		= plateFillets[1]
+		= plateFillets[4]
+		= plateFillets[9]
+		= InputParams->h; // for big fillets
+	plateFillets[10]
+		= plateFillets[13]
+		= InputParams->k; // for small fillets
 	BRepFilletAPI_MakeFillet mkFillet(x);
 	TopExp_Explorer anEdgeExplorer(x, TopAbs_EDGE);
 	int i = 0;
@@ -179,29 +182,29 @@ void ProthesisBuilder::MakeFillets(TopoDS_Shape &x)
 
 void ProthesisBuilder::MakeHoles(TopoDS_Shape &x)
 {
-	//Creating cylindrical hole. j/2 is the radius, l is the height.
+	Creating cylindrical hole. j/2 is the radius, l is the height.
 	BRepPrimAPI_MakeCylinder hole(InputParams->p / 2, InputParams->r);
 
-	//Creating transforming object.
+	Creating transforming object.
 	gp_Trsf myTrsf;
 
-	//Creating translation vector.
+	Creating translation vector.
 	gp_Vec myVec;
 	myVec.SetZ(0);//2D sketch
 
-	//Since our model has 4 cylindrical holes we are going to
-	//place holes and then drill them 4 times.
+	Since our model has 4 cylindrical holes we are going to
+	place holes and then drill them 4 times.
 	for (int i = 0; i < 4; i++)
 	{
-		//Place
+		Place
 		myVec.SetX(InputParams->holes[i].x);
 		myVec.SetY(InputParams->holes[i].y);
 
 		myTrsf.SetTranslation(myVec);
 
-		//this object will return new shape after calling .Shape().
+		this object will return new shape after calling .Shape().
 		BRepBuilderAPI_Transform xform(hole.Shape(), myTrsf);
-		//Drill if isActive=true
+		Drill if isActive=true
 
 		BRepAlgoAPI_Cut cutAlgo(x, xform.Shape());
 		cutAlgo.Build();
@@ -213,10 +216,10 @@ void ProthesisBuilder::MakeHoles(TopoDS_Shape &x)
 
 void ProthesisBuilder::MakePrismaticHole(TopoDS_Shape &x)
 {
-	//Get contour
+	Get contour
 	TopoDS_Wire contour = MakePrismaticHoleContour();
 	
-	//Position contour
+	Position contour
 	gp_Trsf myTrsf;
 	gp_Vec myVec;
 	myVec.SetX(InputParams->b);
@@ -226,12 +229,12 @@ void ProthesisBuilder::MakePrismaticHole(TopoDS_Shape &x)
 	BRepBuilderAPI_Transform xform(contour, myTrsf);
 	contour = TopoDS::Wire(xform.Shape());
 
-	//Creating the prism
+	Creating the prism
 	TopoDS_Face myFaceProfile = BRepBuilderAPI_MakeFace(contour);
 	gp_Vec aPrismVec(0, 0, InputParams->PlateThickness+1);//+1 т.к. какой-то алгоритм тупит и не удаляет крайний фейс призмы
 	TopoDS_Shape PrismaticHole = BRepPrimAPI_MakePrism(myFaceProfile, aPrismVec);
 
-	//Cutting the hole
+	Cutting the hole
 	BRepAlgoAPI_Cut cutAlgo(x, PrismaticHole);
 	cutAlgo.Build();
 	x = cutAlgo.Shape();
@@ -272,15 +275,15 @@ void ProthesisBuilder::WriteToSTLFile(Standard_CString name)
 
 void ProthesisBuilder::WriteToSTLFileLight(Standard_CString name)
 {
-	//TopoDS_Compound aRes;
-	//BRep_Builder aBuilder;
-	//aBuilder.MakeCompound(aRes);
-	//aBuilder.Add(aRes, JunctionAndHead);
-	//aBuilder.Add(aRes, Plate);
+	TopoDS_Compound aRes;
+	BRep_Builder aBuilder;
+	aBuilder.MakeCompound(aRes);
+	aBuilder.Add(aRes, JunctionAndHead);
+	aBuilder.Add(aRes, Plate);
 	std::cout << "Writing...";
 	StlAPI_Writer a;
 	a.ASCIIMode();
-	//a.SetCoefficient(0.01); //черновое
+	a.SetCoefficient(0.01); //черновое
 	a.SetCoefficient(0.0001);  //чистовое
 	/*a.RelativeMode() = Standard_False;
 	a.SetDeflection(0.001);*/
@@ -289,8 +292,8 @@ void ProthesisBuilder::WriteToSTLFileLight(Standard_CString name)
 
 void ProthesisBuilder::MakeHead()
 {
-	//головка-тело, полученное вращением вокруг оси симметрии
-	//сплайна из 4 точек
+	головка-тело, полученное вращением вокруг оси симметрии
+	сплайна из 4 точек
 	gp_Pnt Pnt1(0, 0, 0);
 	gp_Pnt Pnt2(InputParams->s, 0, InputParams->v);
 	gp_Pnt Pnt3(InputParams->t, 0, InputParams->w);
@@ -342,7 +345,7 @@ void ProthesisBuilder::MakeHead()
 
 	Head = BRepPrimAPI_MakeRevol(HeadFace, HeadAxis).Shape();
 
-	//Creating the contour to be used in making loft
+	Creating the contour to be used in making loft
 	TopoDS_Wire aWire(HeadWire);
 	gp_Trsf aTrsf;
 	aTrsf.SetMirror(gp::OX());
@@ -358,13 +361,13 @@ void ProthesisBuilder::MakeHead()
 
 void ProthesisBuilder::MakeJunction()
 {
-	//создать первый контур(на пластинке)
+	создать первый контур(на пластинке)
 	CreateFirstJunctionContour();
 	CreateSecondJunctionContour();
-	//Creating middle contour
+	Creating middle contour
 	CreateMiddleJunctionContour();
 	CreateThirdJunctionContour();
-	//лофт
+	лофт
 	BRepOffsetAPI_ThruSections loft(Standard_True, Standard_False, /*1.0e-06*/1);
 	BRepOffsetAPI_ThruSections loft2(Standard_True, Standard_False, /*1.0e-06*/1);
 	loft.UseSmoothing();
@@ -378,15 +381,15 @@ void ProthesisBuilder::MakeJunction()
 	Junction = loft.Shape();
 	/*Junction2 = loft2.Shape();*/
 
-	//BRepFilletAPI_MakeFillet mkFillet1(Junction);
-	//TopExp_Explorer anEdgeExplorer1(Junction, TopAbs_EDGE);
-	//while (anEdgeExplorer1.More()){
-	//	TopoDS_Edge anEdge = TopoDS::Edge(anEdgeExplorer1.Current());
-	//	//Add edge to fillet algorithm
-	//	mkFillet1.Add(0.5, anEdge);
-	//	anEdgeExplorer1.Next();
-	//}
-	//Junction = mkFillet1.Shape();
+	BRepFilletAPI_MakeFillet mkFillet1(Junction);
+	TopExp_Explorer anEdgeExplorer1(Junction, TopAbs_EDGE);
+	while (anEdgeExplorer1.More()){
+		TopoDS_Edge anEdge = TopoDS::Edge(anEdgeExplorer1.Current());
+		//Add edge to fillet algorithm
+		mkFillet1.Add(0.5, anEdge);
+		anEdgeExplorer1.Next();
+	}
+	Junction = mkFillet1.Shape();
 }
 
 void ProthesisBuilder::MakePlate()
@@ -415,22 +418,22 @@ void ProthesisBuilder::MakePlate()
 
 	/*СКРУГЛЕНИЕ*/
 	gp_Pln aPlane(gp::XOY());
-	//скругление в точке А
+	скругление в точке А
 	ChFi2d_FilletAPI filletAlg(faEdge, abEdge, aPlane);
 	filletAlg.Perform(ip->n);
 	TopoDS_Edge A_fillet = filletAlg.Result(a, faEdge, abEdge);
 
-	//скругление в точке В
+	скругление в точке В
 	ChFi2d_FilletAPI filletAlg2(abEdge, bcEdge, aPlane);
 	filletAlg2.Perform(ip->n);
 	TopoDS_Edge B_fillet = filletAlg2.Result(b, abEdge, bcEdge);
 
-	//скругление в точке C
+	скругление в точке C
 	ChFi2d_FilletAPI filletAlg3(bcEdge, cdEdge, aPlane);
 	filletAlg3.Perform(ip->n);
 	TopoDS_Edge C_fillet = filletAlg3.Result(c, bcEdge, cdEdge);
 
-	//скругление в точке F
+	скругление в точке F
 	ChFi2d_FilletAPI filletAlg4(faEdge, efEdge, aPlane);
 	filletAlg4.Perform(ip->n);
 	TopoDS_Edge F_fillet = filletAlg4.Result(f, faEdge, efEdge);
@@ -450,65 +453,65 @@ void ProthesisBuilder::MakePlate()
 	Plate = BRepPrimAPI_MakePrism(myFaceProfile, aPrismVec);
 }
 
-//void ProthesisBuilder::Build()
-//{
-//	BRep_Builder Builder;
-//	Builder.MakeCompound(Prothesis);
-//	Builder.Add(Prothesis, Head);
-//	Builder.Add(Prothesis, PlateAndJunction);
-//}
+void ProthesisBuilder::Build()
+{
+	BRep_Builder Builder;
+	Builder.MakeCompound(Prothesis);
+	Builder.Add(Prothesis, Head);
+	Builder.Add(Prothesis, PlateAndJunction);
+}
 
 void ProthesisBuilder::CreateFirstJunctionContour()
 {
 	ProthesisInputData* ip = InputParams;
-	// Profile : Define Support Points
+	 Profile : Define Support Points
 	gp_Pnt PntD(ip->dx, ip->dy, 0);
 	gp_Pnt PntE(ip->ex, ip->ey, 0);
 	gp_Pnt PntG(ip->ex, ip->ey, ip->PlateThickness);
 	gp_Pnt PntH(ip->dx, ip->dy, ip->PlateThickness);
 
-	// Profile : Define the Geometry
+	 Profile : Define the Geometry
 	Handle(Geom_TrimmedCurve) deSegment = GC_MakeSegment(PntD, PntE);
 	Handle(Geom_TrimmedCurve) egSegment = GC_MakeSegment(PntE, PntG);
 	Handle(Geom_TrimmedCurve) ghSegment = GC_MakeSegment(PntG, PntH);
 	Handle(Geom_TrimmedCurve) hdSegment = GC_MakeSegment(PntH, PntD);
-	// Profile : Define the Topology
+	 Profile : Define the Topology
 	TopoDS_Edge deEdge = BRepBuilderAPI_MakeEdge(deSegment);
 	TopoDS_Edge egEdge = BRepBuilderAPI_MakeEdge(egSegment);
 	TopoDS_Edge ghEdge = BRepBuilderAPI_MakeEdge(ghSegment);
 	TopoDS_Edge hdEdge = BRepBuilderAPI_MakeEdge(hdSegment);
 
 
-	///*СКРУГЛЕНИЕ*/
-	//gp_Pln aPlane(gp::ZOX());
-	//aPlane.SetLocation(PntD);
-	////скругление в точке D
-	//ChFi2d_FilletAPI filletAlg(deEdge, hdEdge, aPlane);
-	//filletAlg.Perform(ip->q);
-	//TopoDS_Edge D_fillet = filletAlg.Result(PntD, deEdge, hdEdge);
+	/*СКРУГЛЕНИЕ*/
+	gp_Pln aPlane(gp::ZOX());
+	aPlane.SetLocation(PntD);
+	//скругление в точке D
+	ChFi2d_FilletAPI filletAlg(deEdge, hdEdge, aPlane);
+	filletAlg.Perform(ip->q);
+	TopoDS_Edge D_fillet = filletAlg.Result(PntD, deEdge, hdEdge);
 
-	////скругление в точке E
-	//ChFi2d_FilletAPI filletAlg2(deEdge, egEdge, aPlane);
-	//filletAlg2.Perform(ip->q);
-	//TopoDS_Edge E_fillet = filletAlg2.Result(PntE, deEdge, egEdge);
+	//скругление в точке E
+	ChFi2d_FilletAPI filletAlg2(deEdge, egEdge, aPlane);
+	filletAlg2.Perform(ip->q);
+	TopoDS_Edge E_fillet = filletAlg2.Result(PntE, deEdge, egEdge);
 
-	////скругление в точке G
-	//ChFi2d_FilletAPI filletAlg3(egEdge, ghEdge, aPlane);
-	//filletAlg3.Perform(ip->q);
-	//TopoDS_Edge G_fillet = filletAlg3.Result(PntG, egEdge, ghEdge);
+	//скругление в точке G
+	ChFi2d_FilletAPI filletAlg3(egEdge, ghEdge, aPlane);
+	filletAlg3.Perform(ip->q);
+	TopoDS_Edge G_fillet = filletAlg3.Result(PntG, egEdge, ghEdge);
 
-	////скругление в точке H
-	//ChFi2d_FilletAPI filletAlg4(ghEdge, hdEdge, aPlane);
-	//filletAlg4.Perform(ip->q);
-	//TopoDS_Edge H_fillet = filletAlg4.Result(PntH, ghEdge, hdEdge);
-	///*КОНЕЦ СКРУГЛЕНИЯ*/
+	//скругление в точке H
+	ChFi2d_FilletAPI filletAlg4(ghEdge, hdEdge, aPlane);
+	filletAlg4.Perform(ip->q);
+	TopoDS_Edge H_fillet = filletAlg4.Result(PntH, ghEdge, hdEdge);
+	/*КОНЕЦ СКРУГЛЕНИЯ*/
 
-	///*BRepBuilderAPI_MakeWire Wire0(deEdge, egEdge, ghEdge, hdEdge);*/
-	//BRepBuilderAPI_MakeWire Wire0(deEdge, E_fillet, egEdge, G_fillet);
-	//Wire0.Add(ghEdge);
-	//Wire0.Add(H_fillet);
-	//Wire0.Add(hdEdge);
-	//Wire0.Add(D_fillet);
+	/*BRepBuilderAPI_MakeWire Wire0(deEdge, egEdge, ghEdge, hdEdge);*/
+	BRepBuilderAPI_MakeWire Wire0(deEdge, E_fillet, egEdge, G_fillet);
+	Wire0.Add(ghEdge);
+	Wire0.Add(H_fillet);
+	Wire0.Add(hdEdge);
+	Wire0.Add(D_fillet);
 
 	BRepBuilderAPI_MakeWire Wire0(deEdge, egEdge, ghEdge, hdEdge);
 	
@@ -517,26 +520,26 @@ void ProthesisBuilder::CreateFirstJunctionContour()
 
 void ProthesisBuilder::CreateSecondJunctionContour()
 {
-	//Draw
+	Draw
 	ProthesisInputData* ip = InputParams;
-	// Profile : Define Support Points
+	 Profile : Define Support Points
 	gp_Pnt Pnt1(-6,0,-5);
 	gp_Pnt Pnt2(6,0,-5);
 	gp_Pnt Pnt3(6, 0, 5);
 	gp_Pnt Pnt4(-6, 0, 5);
 
-	// Profile : Define the Geometry
+	 Profile : Define the Geometry
 	Handle(Geom_TrimmedCurve) Segment1 = GC_MakeSegment(Pnt1, Pnt2);
 	Handle(Geom_TrimmedCurve) Segment2 = GC_MakeSegment(Pnt2, Pnt3);
 	Handle(Geom_TrimmedCurve) Segment3 = GC_MakeSegment(Pnt3, Pnt4);
 	Handle(Geom_TrimmedCurve) Segment4 = GC_MakeSegment(Pnt4, Pnt1);
-	// Profile : Define the Topology
+	 Profile : Define the Topology
 	TopoDS_Edge Edge1 = BRepBuilderAPI_MakeEdge(Segment1);
 	TopoDS_Edge Edge2 = BRepBuilderAPI_MakeEdge(Segment2);
 	TopoDS_Edge Edge3 = BRepBuilderAPI_MakeEdge(Segment3);
 	TopoDS_Edge Edge4 = BRepBuilderAPI_MakeEdge(Segment4);
 	SecondJunctionContour = BRepBuilderAPI_MakeWire(Edge1, Edge2, Edge3, Edge4);
-	//Place
+	Place
 	gp_Vec b((InputParams->ex + InputParams->dx) / 2, InputParams->ey, InputParams->PlateThickness / 2);
 	gp_Vec disp(InputParams->z, InputParams->a1, InputParams->b1);
 	gp_Vec x = b + disp;
@@ -544,7 +547,7 @@ void ProthesisBuilder::CreateSecondJunctionContour()
 	myTrsf_center_translation.SetTranslation(x);
 	BRepBuilderAPI_Transform newForm(SecondJunctionContour, myTrsf_center_translation);
 	SecondJunctionContour = TopoDS::Wire(newForm.Shape());
-	//Rotate properly
+	Rotate properly
 	gp_Trsf myTrsf_angle_OX;
 	gp_Trsf myTrsf_angle_OY;
 	gp_Trsf myTrsf_angle_OZ;
@@ -567,7 +570,7 @@ void ProthesisBuilder::CreateSecondJunctionContour()
 	BRepBuilderAPI_Transform newWireForm1(newWireForm.Shape(), myTrsf_angle_OY);
 	BRepBuilderAPI_Transform newWireForm2(newWireForm1.Shape(), myTrsf_angle_OZ);
 	SecondJunctionContour = TopoDS::Wire(newWireForm2.Shape());
-	//Displace properly
+	Displace properly
 	gp_Trsf myTrsf;
 	float delta = -12;
 	gp_Dir dir(thirdJunctionContourDisplacementDirection.Direction());
@@ -594,61 +597,61 @@ void ProthesisBuilder::CreateThirdJunctionContour()
 void ProthesisBuilder::CreateMiddleJunctionContour()
 {
 	double delta = 3;
-	//Calculate ctg's
+	Calculate ctg's
 	double ctgalpha1 = (InputParams->ex - InputParams->fx) / (InputParams->ey - InputParams->fy);
 	double ctgalpha2 = (InputParams->dx - InputParams->cx) / (InputParams->dy - InputParams->cy);
-	//Calculate new Xes
+	Calculate new Xes
 	double new_ex = InputParams->ex + delta * ctgalpha1;
 	double new_dx = InputParams->dx + delta * ctgalpha2;
-	//Draw the contour
+	Draw the contour
 	ProthesisInputData* ip = InputParams;
-	// Profile : Define Support Points
+	 Profile : Define Support Points
 	gp_Pnt PntD(new_dx, ip->dy + delta, 0);
 	gp_Pnt PntE(new_ex, ip->ey + delta, 0);
 	gp_Pnt PntG(new_ex, ip->ey + delta, ip->PlateThickness);
 	gp_Pnt PntH(new_dx, ip->dy + delta, ip->PlateThickness);
 
-	// Profile : Define the Geometry
+	 Profile : Define the Geometry
 	Handle(Geom_TrimmedCurve) deSegment = GC_MakeSegment(PntD, PntE);
 	Handle(Geom_TrimmedCurve) egSegment = GC_MakeSegment(PntE, PntG);
 	Handle(Geom_TrimmedCurve) ghSegment = GC_MakeSegment(PntG, PntH);
 	Handle(Geom_TrimmedCurve) hdSegment = GC_MakeSegment(PntH, PntD);
-	// Profile : Define the Topology
+	 Profile : Define the Topology
 	TopoDS_Edge deEdge = BRepBuilderAPI_MakeEdge(deSegment);
 	TopoDS_Edge egEdge = BRepBuilderAPI_MakeEdge(egSegment);
 	TopoDS_Edge ghEdge = BRepBuilderAPI_MakeEdge(ghSegment);
 	TopoDS_Edge hdEdge = BRepBuilderAPI_MakeEdge(hdSegment);
 
-	///*СКРУГЛЕНИЕ*/
-	//gp_Pln aPlane(gp::ZOX());
-	//aPlane.SetLocation(PntD);
-	////скругление в точке D
-	//ChFi2d_FilletAPI filletAlg(deEdge, hdEdge, aPlane);
-	//filletAlg.Perform(ip->q);
-	//TopoDS_Edge D_fillet = filletAlg.Result(PntD, deEdge, hdEdge);
+	/*СКРУГЛЕНИЕ*/
+	gp_Pln aPlane(gp::ZOX());
+	aPlane.SetLocation(PntD);
+	//скругление в точке D
+	ChFi2d_FilletAPI filletAlg(deEdge, hdEdge, aPlane);
+	filletAlg.Perform(ip->q);
+	TopoDS_Edge D_fillet = filletAlg.Result(PntD, deEdge, hdEdge);
 
-	////скругление в точке E
-	//ChFi2d_FilletAPI filletAlg2(deEdge, egEdge, aPlane);
-	//filletAlg2.Perform(ip->q);
-	//TopoDS_Edge E_fillet = filletAlg2.Result(PntE, deEdge, egEdge);
+	//скругление в точке E
+	ChFi2d_FilletAPI filletAlg2(deEdge, egEdge, aPlane);
+	filletAlg2.Perform(ip->q);
+	TopoDS_Edge E_fillet = filletAlg2.Result(PntE, deEdge, egEdge);
 
-	////скругление в точке G
-	//ChFi2d_FilletAPI filletAlg3(egEdge, ghEdge, aPlane);
-	//filletAlg3.Perform(ip->q);
-	//TopoDS_Edge G_fillet = filletAlg3.Result(PntG, egEdge, ghEdge);
+	//скругление в точке G
+	ChFi2d_FilletAPI filletAlg3(egEdge, ghEdge, aPlane);
+	filletAlg3.Perform(ip->q);
+	TopoDS_Edge G_fillet = filletAlg3.Result(PntG, egEdge, ghEdge);
 
-	////скругление в точке H
-	//ChFi2d_FilletAPI filletAlg4(ghEdge, hdEdge, aPlane);
-	//filletAlg4.Perform(ip->q);
-	//TopoDS_Edge H_fillet = filletAlg4.Result(PntH, ghEdge, hdEdge);
-	///*КОНЕЦ СКРУГЛЕНИЯ*/
+	//скругление в точке H
+	ChFi2d_FilletAPI filletAlg4(ghEdge, hdEdge, aPlane);
+	filletAlg4.Perform(ip->q);
+	TopoDS_Edge H_fillet = filletAlg4.Result(PntH, ghEdge, hdEdge);
+	/*КОНЕЦ СКРУГЛЕНИЯ*/
 
-	///*BRepBuilderAPI_MakeWire Wire0(deEdge, egEdge, ghEdge, hdEdge);*/
-	//BRepBuilderAPI_MakeWire Wire0(deEdge, E_fillet, egEdge, G_fillet);
-	//Wire0.Add(ghEdge);
-	//Wire0.Add(H_fillet);
-	//Wire0.Add(hdEdge);
-	//Wire0.Add(D_fillet);
+	/*BRepBuilderAPI_MakeWire Wire0(deEdge, egEdge, ghEdge, hdEdge);*/
+	BRepBuilderAPI_MakeWire Wire0(deEdge, E_fillet, egEdge, G_fillet);
+	Wire0.Add(ghEdge);
+	Wire0.Add(H_fillet);
+	Wire0.Add(hdEdge);
+	Wire0.Add(D_fillet);
 
 	BRepBuilderAPI_MakeWire Wire0(deEdge, egEdge, ghEdge, hdEdge);
 
@@ -663,12 +666,12 @@ void ProthesisBuilder::CreateMiddleJunctionContour()
 
 void ProthesisBuilder::PositionHead()
 {
-	//Для позиционирования головки ввожу дополнительный элемент: 
-	//центр, его нужно трансформировать совместно с головкой
+	Для позиционирования головки ввожу дополнительный элемент: 
+	центр, его нужно трансформировать совместно с головкой
 	HeadCenter.SetX(InputParams->u / 2);
 	HeadCenter.SetY(0);
 	HeadCenter.SetZ(0);
-	//Вычисляем вектор x для перемещения головки
+	Вычисляем вектор x для перемещения головки
 	gp_Vec a(HeadCenter.X(), 0, 0);
 	gp_Vec b((InputParams->ex + InputParams->dx) / 2, InputParams->ey, InputParams->PlateThickness / 2);
 	gp_Vec disp(InputParams->z, InputParams->a1, InputParams->b1);
@@ -734,7 +737,7 @@ TopoDS_Wire ProthesisBuilder::FindIntersection()
 	Handle(ShapeFix_Wire) sfw = new ShapeFix_Wire;
 	sfw->Load(sbwd1);
 	sfw->Perform();
-	//Reorder edges is very important
+	Reorder edges is very important
 	sfw->FixReorder();
 	sfw->SetMaxTolerance(tol);
 
@@ -749,53 +752,269 @@ TopoDS_Wire ProthesisBuilder::FindIntersection()
 	return wire;
 }
 
-//void ProthesisBuilder::visualize()
-//
-//{
-//	TopoDS_Compound aRes;
-//	BRep_Builder aBuilder;
-//	aBuilder.MakeCompound(aRes);
-//	aBuilder.Add(aRes, Plate);
-//	aBuilder.Add(aRes, Junction);
-//	aBuilder.Add(aRes, Head);
-//
-//	IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(aRes);
-//
-//	vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
-//
-//	DS->SetShape(aShapeImpl); //?
-//
-//	vtkSmartPointer<IVtkTools_DisplayModeFilter> DMFilter = vtkSmartPointer<IVtkTools_DisplayModeFilter>::New();
-//
-//	DMFilter->AddInputConnection(DS->GetOutputPort());
-//
-//	DMFilter->SetDisplayMode(DM_Shading);
-//
-//	vtkSmartPointer<vtkDataSetMapper> M = vtkSmartPointer<vtkDataSetMapper>::New();
-//	M->SetInputConnection(DMFilter->GetOutputPort());
-//
-//
-//	vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
-//	Actor->SetMapper(M);
-//
-//
-//	// Create a renderer, render window, and interactor
-//	vtkSmartPointer<vtkRenderer> renderer =
-//		vtkSmartPointer<vtkRenderer>::New();
-//	vtkSmartPointer<vtkRenderWindow> renderWindow =
-//		vtkSmartPointer<vtkRenderWindow>::New();
-//	renderWindow->AddRenderer(renderer);
-//	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
-//		vtkSmartPointer<vtkRenderWindowInteractor>::New();
-//	renderWindowInteractor->SetRenderWindow(renderWindow);
-//	// Add the actors to the scene
-//
-//	renderer->AddActor(Actor);
-//	
-//	renderer->SetBackground(.3, .2, .1);
-//
-//	// Render and interact
-//	renderWindow->Render();
-//	renderWindowInteractor->Start();
-//}
+int ProthesisBuilder::read_polyhedron_from_off_file(const char* input_filename, Polyhedron &mesh)
+{
+	std::ifstream stream(input_filename);
+	stream >> mesh;
+	if (!stream || !mesh.is_valid() || mesh.empty())
+	{
+		std::cerr << "Error: cannot read OFF file " << input_filename << std::endl;
+		return 1;
+	}
+	return 0;
+}
+
+void ProthesisBuilder::get_facets_with_equal_z_and_specified_tolerance(double z, double tolerance, Polyhedron &mesh, Polyhedron &rezult)
+{
+	std::vector<double> coords;
+	std::vector<int>    tris;
+	int counter_of_points_with_equal_z = 0, index_of_point = -1;
+	for (Facet_iterator f = mesh.facets_begin(); f != mesh.facets_end(); ++f)
+	{
+		counter_of_points_with_equal_z = 0;
+		Halfedge_facet_circulator v = f->facet_begin();
+		do
+		{
+			if ((v->vertex()->point().z() > (z - tolerance)) && (v->vertex()->point().z() < z + tolerance))
+			{
+				counter_of_points_with_equal_z++;
+			}
+		} while (++v != f->facet_begin());
+		if (counter_of_points_with_equal_z >= 1)
+		{
+			v = f->facet_begin();
+			do
+			{
+				coords.push_back(v->vertex()->point().x());
+				coords.push_back(v->vertex()->point().y());
+				coords.push_back(v->vertex()->point().z());
+				tris.push_back(++index_of_point);
+			} while (++v != f->facet_begin());
+		}
+	}
+	polyhedron_builder<HalfedgeDS> builder(coords, tris);
+	rezult.delegate(builder);
+}
+
+void ProthesisBuilder::create_big_triangle(Polyhedron &big_triangle)
+{
+	std::vector<double> coords;
+	coords.push_back(20);
+	coords.push_back(20);
+	coords.push_back(10);
+	coords.push_back(0);
+	coords.push_back(-20);
+	coords.push_back(10);
+	coords.push_back(-20);
+	coords.push_back(20);
+	coords.push_back(10);
+	std::vector<int> tris;
+	tris.push_back(0);
+	tris.push_back(1);
+	tris.push_back(2);
+	polyhedron_builder<HalfedgeDS> builder(coords, tris);
+	big_triangle.delegate(builder);
+}
+
+surface_a will be projected onto surface_b with projection_vector and the output surface will be written into surface_a
+void ProthesisBuilder::get_projection_surface(Polyhedron &surface_a, Tree &surface_b_geometry_tree, Vector_3 &projection_vector)
+{
+	Point_iterator pi = surface_a.points_begin();
+	for (Vertex_iterator vi = surface_a.vertices_begin(); vi != surface_a.vertices_end(); vi++)
+	{
+
+		Ray ray(vi->point(), projection_vector);
+		std::vector<Ray_intersection> all_intersections;
+		std::vector<Point_3> all_intersection_points;
+		std::vector<double> distances;
+		if (surface_b_geometry_tree.do_intersect(ray))
+		{
+			surface_b_geometry_tree.all_intersections(ray, std::back_inserter(all_intersections));
+			for (int i = 0; i < all_intersections.size(); i++)
+			{
+				all_intersection_points.push_back(*boost::get<Point_3>(&(all_intersections[i]->first)));
+			}
+
+			for (int i = 0; i < all_intersection_points.size(); i++)
+			{
+				distances.push_back(pow(all_intersection_points[i].x() - vi->point().x(), 2) +
+					pow(all_intersection_points[i].y() - vi->point().y(), 2) +
+					pow(all_intersection_points[i].z() - vi->point().z(), 2));
+			}
+
+			int index_of_closest_point = std::min_element(distances.begin(), distances.end()) - distances.begin();
+			Vector_3 translation_vector(vi->point(), all_intersection_points[index_of_closest_point]);
+			Aff_transformation_3 translation(CGAL::TRANSLATION, translation_vector);
+			Point_iterator end = pi;
+			end++;
+			std::transform(pi, end, pi, translation);
+		}
+
+		pi++;
+	}
+}
+
+void ProthesisBuilder::project_point_onto_surface(Point_iterator &pi, Tree &surface_geometry_tree, Vector_3 &projection_vector)
+{
+	Ray ray(*pi, projection_vector);
+	std::vector<Ray_intersection> all_intersections;
+	std::vector<Point_3> all_intersection_points;
+	std::vector<double> distances;
+	if (surface_geometry_tree.do_intersect(ray))
+	{
+		surface_geometry_tree.all_intersections(ray, std::back_inserter(all_intersections));
+		for (int i = 0; i < all_intersections.size(); i++)
+		{
+			all_intersection_points.push_back(*boost::get<Point_3>(&(all_intersections[i]->first)));
+		}
+
+		for (int i = 0; i < all_intersection_points.size(); i++)
+		{
+			distances.push_back(pow(all_intersection_points[i].x() - pi->x(), 2) +
+				pow(all_intersection_points[i].y() - pi->y(), 2) +
+				pow(all_intersection_points[i].z() - pi->z(), 2));
+		}
+
+		int index_of_closest_point = std::min_element(distances.begin(), distances.end()) - distances.begin();
+		Vector_3 translation_vector(*pi, all_intersection_points[index_of_closest_point]);
+		Aff_transformation_3 translation(CGAL::TRANSLATION, translation_vector);
+		Point_iterator end = pi;
+		end++;
+		std::transform(pi, end, pi, translation);
+	}
+}
+
+void ProthesisBuilder::CreateAdheringSurface(Direction_3 &direction, Vector_3 projection_vector, Polyhedron &prothesis_mesh,
+	Polyhedron &jaw_mesh, Polyhedron &rezult1, Polyhedron &rezult2)
+{
+	std::vector<double> coordsOfFirstGroup;
+	std::vector<int>    trisOfFirstGroup;
+	std::vector<double> coordsOfSecondGroup;
+	std::vector<int>    trisOfSecondGroup;
+	std::vector<double> coordsOfThirdGroup;
+	std::vector<int>    trisOfThirdGroup;
+	std::vector<double> coordsOfFourthGroup;
+	std::vector<int>    trisOfFourthGroup;
+
+	int indexOfPointInFirstGroup = -1;
+	int indexOfPointInSecondGroup = -1;
+	int indexOfPointInThirdGroup = -1;
+	int indexOfPointInFourthGroup = -1;
+	Normal_vector normal_vector;
+	Vector_3 normal;
+	Halfedge_facet_circulator fc;
+	Plane_iterator pi = prothesis_mesh.facets_begin();
+	for (Facet_iterator fi = prothesis_mesh.facets_begin(); fi != prothesis_mesh.facets_end(); ++fi)
+	{
+		normal = normal_vector(*fi);
+		if (normal.direction() == direction)
+		{
+			fc = fi->facet_begin();
+			do
+			{
+				coordsOfFirstGroup.push_back(fc->vertex()->point().x());
+				coordsOfFirstGroup.push_back(fc->vertex()->point().y());
+				coordsOfFirstGroup.push_back(fc->vertex()->point().z());
+				trisOfFirstGroup.push_back(++indexOfPointInFirstGroup);
+			} while (++fc != fi->facet_begin());
+		}
+		else if (normal.direction() != -direction)
+		{
+			if (abs(normal * direction.vector()) < 0.001)
+			{
+				fc = fi->facet_begin();
+				do
+				{
+					coordsOfSecondGroup.push_back(fc->vertex()->point().x());
+					coordsOfSecondGroup.push_back(fc->vertex()->point().y());
+					coordsOfSecondGroup.push_back(fc->vertex()->point().z());
+					trisOfSecondGroup.push_back(++indexOfPointInSecondGroup);
+				} while (++fc != fi->facet_begin());
+			}
+			else if (normal * direction.vector() > 0)
+			{
+				fc = fi->facet_begin();
+				do
+				{
+					coordsOfFirstGroup.push_back(fc->vertex()->point().x());
+					coordsOfFirstGroup.push_back(fc->vertex()->point().y());
+					coordsOfFirstGroup.push_back(fc->vertex()->point().z());
+					trisOfFirstGroup.push_back(++indexOfPointInFirstGroup);
+				} while (++fc != fi->facet_begin());
+			}
+		}
+	}
+
+	polyhedron_builder<HalfedgeDS> builder1(coordsOfFirstGroup, trisOfFirstGroup);
+	rezult1.delegate(builder1);
+	polyhedron_builder<HalfedgeDS> builder2(coordsOfSecondGroup, trisOfSecondGroup);
+	rezult2.delegate(builder2);
+	 constructs AABB tree
+	Tree jaw_geometry_tree(jaw_mesh.facets_begin(), jaw_mesh.facets_end());
+	jaw_geometry_tree.accelerate_distance_queries();
+	std::cout << "AB started" << std::endl;
+	jaw_geometry_tree.build();
+	std::cout << "AB ended" << std::endl;
+	for (Point_iterator pi1 = rezult1.points_begin(); pi1 != rezult1.points_end(); pi1++)
+	{
+		for (Point_iterator pi2 = rezult2.points_begin(); pi2 != rezult2.points_end(); pi2++)
+		{
+			if (pi1->x() == pi2->x() && pi1->y() == pi2->y() && pi1->z() == pi2->z())
+			{
+				project_point_onto_surface(pi2, jaw_geometry_tree, projection_vector);
+			}
+		}
+	}
+	get_projection_surface(rezult1, jaw_geometry_tree, projection_vector);
+}
+
+void ProthesisBuilder::visualize()
+
+{
+	TopoDS_Compound aRes;
+	BRep_Builder aBuilder;
+	aBuilder.MakeCompound(aRes);
+	aBuilder.Add(aRes, Plate);
+	aBuilder.Add(aRes, Junction);
+	aBuilder.Add(aRes, Head);
+
+	IVtkOCC_Shape::Handle aShapeImpl = new IVtkOCC_Shape(aRes);
+
+	vtkSmartPointer<IVtkTools_ShapeDataSource> DS = vtkSmartPointer<IVtkTools_ShapeDataSource>::New();
+
+	DS->SetShape(aShapeImpl); //?
+
+	vtkSmartPointer<IVtkTools_DisplayModeFilter> DMFilter = vtkSmartPointer<IVtkTools_DisplayModeFilter>::New();
+
+	DMFilter->AddInputConnection(DS->GetOutputPort());
+
+	DMFilter->SetDisplayMode(DM_Shading);
+
+	vtkSmartPointer<vtkDataSetMapper> M = vtkSmartPointer<vtkDataSetMapper>::New();
+	M->SetInputConnection(DMFilter->GetOutputPort());
+
+
+	vtkSmartPointer<vtkActor> Actor = vtkSmartPointer<vtkActor>::New();
+	Actor->SetMapper(M);
+
+
+	// Create a renderer, render window, and interactor
+	vtkSmartPointer<vtkRenderer> renderer =
+		vtkSmartPointer<vtkRenderer>::New();
+	vtkSmartPointer<vtkRenderWindow> renderWindow =
+		vtkSmartPointer<vtkRenderWindow>::New();
+	renderWindow->AddRenderer(renderer);
+	vtkSmartPointer<vtkRenderWindowInteractor> renderWindowInteractor =
+		vtkSmartPointer<vtkRenderWindowInteractor>::New();
+	renderWindowInteractor->SetRenderWindow(renderWindow);
+	// Add the actors to the scene
+
+	renderer->AddActor(Actor);
+	
+	renderer->SetBackground(.3, .2, .1);
+
+	// Render and interact
+	renderWindow->Render();
+	renderWindowInteractor->Start();
+}
 

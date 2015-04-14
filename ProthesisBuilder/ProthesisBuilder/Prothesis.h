@@ -69,67 +69,83 @@
 #include <CGAL/AABB_traits.h>
 #include <CGAL/AABB_polyhedron_triangle_primitive.h>
 #include <CGAL/aff_transformation_tags.h>
-//
-//#include <iostream>
-//#include <fstream>
-//#include <string>
-//#include "stdio.h"
-//
-//typedef std::string string;
-//typedef std::ifstream ifstream;
-//typedef CGAL::Cartesian<double> Kernel;
-//typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
-//typedef Polyhedron::Facet_iterator Facet_iterator;
-//typedef Polyhedron::Vertex_iterator Vertex_iterator;
-//typedef Polyhedron::Point_iterator Point_iterator;
-//typedef Polyhedron::Halfedge_around_facet_circulator Halfedge_facet_circulator;
-//typedef Kernel::Point_3 Point_3;
-//typedef Kernel::Direction_3 Direction_3;
-//typedef Kernel::Vector_3 Vector_3;
-//typedef Polyhedron::HalfedgeDS HalfedgeDS;
-//typedef Kernel::Ray_3 Ray;
-//typedef CGAL::AABB_polyhedron_triangle_primitive<Kernel, Polyhedron> Primitive;
-//typedef CGAL::AABB_traits<Kernel, Primitive> Traits;
-//typedef CGAL::AABB_tree<Traits> Tree;
-//typedef boost::optional< Tree::Intersection_and_primitive_id<Ray>::Type > Ray_intersection;
-//typedef CGAL::Translation Translation;
-//typedef CGAL::Aff_transformation_3<Kernel> Aff_transformation_3;
-//
-//// A modifier creating a triangle with the incremental builder.
-//template<class HDS>
-//class polyhedron_builder : public CGAL::Modifier_base<HDS> {
-//public:
-//	std::vector<double> &coords;
-//	std::vector<int>    &tris;
-//	polyhedron_builder(std::vector<double> &_coords, std::vector<int> &_tris) : coords(_coords), tris(_tris) {}
-//	void operator()(HDS& hds) {
-//		typedef typename HDS::Vertex   Vertex;
-//		typedef typename Vertex::Point Point;
-//		// create a cgal incremental builder
-//		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds, true);
-//		B.begin_surface(coords.size() / 3, tris.size() / 3);
-//		// add the polyhedron vertices
-//		for (int i = 0; i<(int)coords.size(); i += 3){
-//			B.add_vertex(Point(coords[i + 0], coords[i + 1], coords[i + 2]));
-//		}
-//		// add the polyhedron triangles
-//		for (int i = 0; i<(int)tris.size(); i += 3){
-//			B.begin_facet();
-//			B.add_vertex_to_facet(tris[i + 0]);
-//			B.add_vertex_to_facet(tris[i + 1]);
-//			B.add_vertex_to_facet(tris[i + 2]);
-//			B.end_facet();
-//		}
-//		// finish up the surface
-//		B.end_surface();
-//	}
-//};
+#include <CGAL/Polyhedron_traits_with_normals_3.h>
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include "stdio.h"
+
+typedef std::string string;
+typedef std::ifstream ifstream;
+typedef CGAL::Cartesian<double> Kernel;
+typedef CGAL::Polyhedron_traits_with_normals_3<Kernel> Polyhedron_traits_with_normals_3;
+typedef CGAL::Polyhedron_3<Polyhedron_traits_with_normals_3/*Kernel*/> Polyhedron;
+typedef Polyhedron::Facet_iterator Facet_iterator;
+typedef Polyhedron::Vertex_iterator Vertex_iterator;
+typedef Polyhedron::Point_iterator Point_iterator;
+typedef Polyhedron::Edge_iterator Edge_iterator;
+typedef Polyhedron::Plane_iterator Plane_iterator;
+typedef Polyhedron::Halfedge_iterator Halfedge_iterator;
+typedef Polyhedron::Halfedge_around_facet_circulator Halfedge_facet_circulator;
+typedef Polyhedron::Halfedge_around_vertex_circulator Halfedge_around_vertex_circulator;
+typedef Kernel::Point_3 Point_3;
+typedef Kernel::Vector_3 Vector_3;
+typedef Polyhedron::HalfedgeDS HalfedgeDS;
+typedef Kernel::Ray_3 Ray;
+typedef CGAL::AABB_polyhedron_triangle_primitive<Kernel, Polyhedron> Primitive;
+typedef CGAL::AABB_traits<Kernel, Primitive> Traits;
+typedef CGAL::AABB_tree<Traits> Tree;
+typedef boost::optional< Tree::Intersection_and_primitive_id<Ray>::Type > Ray_intersection;
+typedef CGAL::Translation Translation;
+typedef CGAL::Aff_transformation_3<Kernel> Aff_transformation_3;
+typedef Kernel::Direction_3 Direction_3;
+
+// A modifier creating a triangle with the incremental builder.
+template<class HDS>
+class polyhedron_builder : public CGAL::Modifier_base<HDS> {
+public:
+	std::vector<double> &coords;
+	std::vector<int>    &tris;
+	polyhedron_builder(std::vector<double> &_coords, std::vector<int> &_tris) : coords(_coords), tris(_tris) {}
+	void operator()(HDS& hds) {
+		typedef typename HDS::Vertex   Vertex;
+		typedef typename Vertex::Point Point;
+		// create a cgal incremental builder
+		CGAL::Polyhedron_incremental_builder_3<HDS> B(hds, true);
+		B.begin_surface(coords.size() / 3, tris.size() / 3);
+		// add the polyhedron vertices
+		for (int i = 0; i<(int)coords.size(); i += 3){
+			B.add_vertex(Point(coords[i + 0], coords[i + 1], coords[i + 2]));
+		}
+		// add the polyhedron triangles
+		for (int i = 0; i<(int)tris.size(); i += 3){
+			B.begin_facet();
+			B.add_vertex_to_facet(tris[i + 0]);
+			B.add_vertex_to_facet(tris[i + 1]);
+			B.add_vertex_to_facet(tris[i + 2]);
+			B.end_facet();
+		}
+		// finish up the surface
+		B.end_surface();
+	}
+};
+
+struct Normal_vector {
+	template <class Facet>
+	typename Facet::Plane_3 operator()(Facet& f) {
+		typename Facet::Halfedge_handle h = f.halfedge();
+		// Facet::Plane_3 is the normal vector type. We assume the
+		// CGAL Kernel here and use its global functions.
+		return CGAL::cross_product(
+			h->next()->vertex()->point() - h->vertex()->point(),
+			h->next()->next()->vertex()->point() - h->next()->vertex()->point());
+	}
+};
 
 
 class ProthesisBuilder
 {
-protected:
-	
 public:
 	/*void visualize();*/
 
@@ -174,7 +190,7 @@ private:
 	void UnitePlateJunctionAndHead();
 	void UniteJunctionAndHead();
 	
-	ProthesisInputData * InputParams;
+	ProthesisInputData *InputParams;
 	TopoDS_Shape Head;
 	TopoDS_Shape PlateAndJunction;
 	TopoDS_Shape JunctionAndHead;
@@ -190,6 +206,14 @@ private:
 	TopoDS_Wire FirstJunctionContour;
 	TopoDS_Wire MiddleJunctionContour;
 	TopoDS_Wire SecondJunctionContour;
+
+	int read_polyhedron_from_off_file(const char* input_filename, Polyhedron &mesh);
+	void get_facets_with_equal_z_and_specified_tolerance(double z, double tolerance, Polyhedron &mesh, Polyhedron &rezult);
+	void create_big_triangle(Polyhedron &big_triangle);
+	void get_projection_surface(Polyhedron &surface_a, Tree &surface_b_geometry_tree, Vector_3 &projection_vector);
+	void project_point_onto_surface(Point_iterator &pi, Tree &surface_geometry_tree, Vector_3 &projection_vector);
+	void CreateAdheringSurface(Direction_3 &direction, Vector_3 projection_vector, Polyhedron &prothesis_mesh,
+		Polyhedron &jaw_mesh, Polyhedron &rezult1, Polyhedron &rezult2);
 };
 
 #endif 

@@ -86,6 +86,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="adhering_main.cpp" />
+    <ClCompile Include="BinarySTLreader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Prothesis.cpp" />
     <ClCompile Include="ProthesisInputData.cpp" />

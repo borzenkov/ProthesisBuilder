@@ -5,6 +5,8 @@
 #ifndef __ProthesisInputData_h
 #define __ProthesisInputData_h
 
+enum orientation { LEFT, RIGHT };
+
 struct Hole
 {
 	double x;
@@ -117,6 +119,8 @@ public:
 	double plateFillets2[4];
 
 	double m, n, o, p, q, s, t, u, v, w, z, a1, b1, c1, d1;
+
+	orientation orientation;
 };
 
 #endif 
