@@ -1,6 +1,6 @@
- MedBox
- Prothesis.cpp
- (c) Victor Borzenkov 2014
+// MedBox
+ //Prothesis.cpp
+ //(c) Victor Borzenkov 2014
 
 #define _SCL_SECURE_NO_WARNINGS //The program won't compile without this string
 #define _CRT_SECURE_NO_WARNINGS
@@ -9,8 +9,8 @@
 
 void ProthesisBuilder::Build()
 {
-	 TODO: wrap all debug output in ifs 
-	 TODO: and create a boolean field in this class for debug mode
+//	 TODO: wrap all debug output in ifs 
+//	 TODO: and create a boolean field in this class for debug mode
 	std::cout << "MakePlate started" << std::endl;
 	MakePlate();
 	std::cout << "MakePlate ended" << std::endl;
@@ -30,9 +30,9 @@ void ProthesisBuilder::Build()
 	std::cout << "UnitePlateJunctionAndHead started" << std::endl;
 	UnitePlateJunctionAndHead();
 	std::cout << "UnitePlateJunctionAndHead ended" << std::endl;
-	std::cout << "MakeFillets started" << std::endl;
+	/*std::cout << "MakeFillets started" << std::endl;
 	MakeFillets();
-	std::cout << "MakeFillets ended" << std::endl;
+	std::cout << "MakeFillets ended" << std::endl;*/
 	std::cout << "MakeHoles started" << std::endl;
 	MakeHoles(Prothesis);
 	std::cout << "MakeHoles ended";
