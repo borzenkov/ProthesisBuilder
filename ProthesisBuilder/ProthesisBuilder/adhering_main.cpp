@@ -76,8 +76,8 @@ struct Normal_vector {
 	template <class Facet>
 	typename Facet::Plane_3 operator()(Facet& f) {
 		typename Facet::Halfedge_handle h = f.halfedge();
-//		 Facet::Plane_3 is the normal vector type. We assume the
-//		 CGAL Kernel here and use its global functions.
+		 Facet::Plane_3 is the normal vector type. We assume the
+		 CGAL Kernel here and use its global functions.
 		return CGAL::cross_product(
 			h->next()->vertex()->point() - h->vertex()->point(),
 			h->next()->next()->vertex()->point() - h->next()->vertex()->point());
@@ -300,43 +300,43 @@ void CreateAdheringSurface(Direction_3 &direction, Vector_3 projection_vector, P
 	get_projection_surface(rezult1, jaw_geometry_tree, projection_vector);
 }
 
-//void main(int argc, char * argv[])
-//{
-//	// decode parameters
-//	if (argc - 1 != 2)
-//	{
-//		std::cerr << "Usage: " << argv[0] << " input_file.off" << std::endl;
-//	}
-//
-//	// File name is:
-//	const char* input_filename_prothesis = argv[1];
-//	const char* input_filename_jaw = argv[2];
-//
-//	// Read the mesh
-//	Polyhedron prothesis;
-//	read_polyhedron_from_off_file(input_filename_prothesis, prothesis);
-//
-//	Polyhedron jaw;
-//	read_polyhedron_from_off_file(input_filename_jaw, jaw);
-//
-//	Polyhedron rezult1;
-//	Polyhedron rezult2;
-//	Polyhedron rezult3;
-//	Polyhedron rezult4;
-//
-//	Direction_3 direction(0, 0, -1);
-//	Vector_3 projection_vector(0.2, 0.2, -0.9);
-//	CreateAdheringSurface(direction, projection_vector, prothesis, jaw, rezult1, rezult2);
-//	std::ofstream os;
-//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult1.off");
-//	os << rezult1;
-//	os.close();
-//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult2.off");
-//	os << rezult2;
-//	os.close();
-//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult3.off");
-//	os << rezult3;
-//	os.close();
-//
-//	std::cout << "Done";
-//}
+void main(int argc, char * argv[])
+{
+	// decode parameters
+	if (argc - 1 != 2)
+	{
+		std::cerr << "Usage: " << argv[0] << " input_file.off" << std::endl;
+	}
+
+	// File name is:
+	const char* input_filename_prothesis = argv[1];
+	const char* input_filename_jaw = argv[2];
+
+	// Read the mesh
+	Polyhedron prothesis;
+	read_polyhedron_from_off_file(input_filename_prothesis, prothesis);
+
+	Polyhedron jaw;
+	read_polyhedron_from_off_file(input_filename_jaw, jaw);
+
+	Polyhedron rezult1;
+	Polyhedron rezult2;
+	Polyhedron rezult3;
+	Polyhedron rezult4;
+
+	Direction_3 direction(0, 0, -1);
+	Vector_3 projection_vector(0.2, 0.2, -0.9);
+	CreateAdheringSurface(direction, projection_vector, prothesis, jaw, rezult1, rezult2);
+	std::ofstream os;
+	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult1.off");
+	os << rezult1;
+	os.close();
+	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult2.off");
+	os << rezult2;
+	os.close();
+	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult3.off");
+	os << rezult3;
+	os.close();
+
+	std::cout << "Done";
+}

@@ -263,13 +263,13 @@ int readSTL(std::string file_name, Polyhedron &output)
 	return 0;
 }
 
-void main()
-{
-	std::string file_name = "C:/FILES/ProthesisBuilder/OUTPUT/Plate_binary.stl";
-	Polyhedron plate;
-	readSTL(file_name, plate);
-	std::ofstream os;
-	os.open("C:/FILES/ProthesisBuilder/OUTPUT/okuet.off");
-	os << plate;
-	std::cin.get();
-}
+//void main()
+//{
+//	std::string file_name = "C:/FILES/ProthesisBuilder/OUTPUT/Plate_binary.stl";
+//	Polyhedron plate;
+//	readSTL(file_name, plate);
+//	std::ofstream os;
+//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/okuet.off");
+//	os << plate;
+//	std::cin.get();
+//}
