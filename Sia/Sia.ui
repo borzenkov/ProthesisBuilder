@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Sia</class>
+ <widget class="QMainWindow" name="Sia">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>542</width>
+    <height>318</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Sia</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: white;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QFrame" name="formFrame_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>10</y>
+      <width>191</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout_2">
+     <item row="3" column="1">
+      <widget class="QSlider" name="origin_x">
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>origin_x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>origin_y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QSlider" name="origin_y">
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>origin_z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QSlider" name="origin_z">
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>angle_around_x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QSlider" name="angle_around_x">
+       <property name="maximum">
+        <number>90</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>angle_around_y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QSlider" name="angle_around_y">
+       <property name="maximum">
+        <number>90</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>angle_around_z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QSlider" name="angle_around_z">
+       <property name="maximum">
+        <number>90</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QSlider" name="in_dz">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>dz</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSlider" name="in_dy">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>dy</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSlider" name="in_dx">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>dx</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QVTKWidget" name="qvtkWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>281</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: none;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>260</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <action name="actionOpenFile">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Open File...</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QVTKWidget</class>
+   <extends>QWidget</extends>
+   <header>QVTKWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../../../Users/Виктор/Desktop/UI/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>

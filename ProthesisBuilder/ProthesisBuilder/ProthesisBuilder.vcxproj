@@ -53,14 +53,14 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\opencascade-6.8.0\inc;C:\boost_1_57_0;C:\CGAL\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost_1_57_0;C:\CGAL\include\</AdditionalIncludeDirectories>
       <AdditionalOptions>/DWNT %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\opencascade-6.8.0-build\out\lib\Release;C:\CGAL\lib;C:\boost_1_57_0\lib32-msvc-12.0</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CGAL_Core-vc120-mt-gd-4.5.2.lib;CGAL_ImageIO-vc120-mt-gd-4.5.2.lib;CGAL_Qt4-vc120-mt-gd-4.5.2.lib;CGAL-vc120-mt-gd-4.5.2.lib;DRAWEXE.lib;FWOSPlugin.lib;PTKernel.lib;TKBin.lib;TKBinL.lib;TKBinTObj.lib;TKBinXCAF.lib;TKBO.lib;TKBool.lib;TKBRep.lib;TKCAF.lib;TKCDF.lib;TKDCAF.lib;TKDraw.lib;TKernel.lib;TKFeat.lib;TKFillet.lib;TKG2d.lib;TKG3d.lib;TKGeomAlgo.lib;TKGeomBase.lib;TKHLR.lib;TKIGES.lib;TKIVtk.lib;TKIVtkDraw.lib;TKLCAF.lib;TKMath.lib;TKMesh.lib;TKMeshVS.lib;TKNIS.lib;TKOffset.lib;TKOpenGl.lib;TKPCAF.lib;TKPLCAF.lib;TKPrim.lib;TKPShape.lib;TKQADraw.lib;TKService.lib;TKShapeSchema.lib;TKShHealing.lib;TKStdLSchema.lib;TKStdSchema.lib;TKSTEP.lib;TKSTEP209.lib;TKSTEPAttr.lib;TKSTEPBase.lib;TKSTL.lib;TKTObj.lib;TKTObjDRAW.lib;TKTopAlgo.lib;TKTopTest.lib;TKV3d.lib;TKViewerTest.lib;TKVoxel.lib;TKVRML.lib;TKXCAF.lib;TKXCAFSchema.lib;TKXDEDRAW.lib;TKXDEIGES.lib;TKXDESTEP.lib;TKXMesh.lib;TKXml.lib;TKXmlL.lib;TKXmlTObj.lib;TKXmlXCAF.lib;TKXSBase.lib;TKXSDRAW.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\CGAL\lib;C:\boost_1_57_0\lib32-msvc-12.0</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CGAL_Core-vc120-mt-gd-4.5.2.lib;CGAL_ImageIO-vc120-mt-gd-4.5.2.lib;CGAL_Qt4-vc120-mt-gd-4.5.2.lib;CGAL-vc120-mt-gd-4.5.2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -1,0 +1,44 @@
+QWidget {
+    background-color: #eeeeee;
+}
+
+QSlider::groove:horizontal {
+    height: 2px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+    background-color: #8f8f8f;
+    margin: 2px 0;
+}
+
+
+QSlider::handle:horizontal {
+    background-color: #3f51b5;
+    width: 18px;
+    margin: -8px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+    border-radius: 9px;
+}
+
+QSlider::sub-page:horizontal {
+    height: 2px;
+    background-color: #3f51b5;
+    margin: 2px 0;
+}
+
+QPushButton {
+    border-radius: 20px;
+    background-color: #0f9d58;
+    background-image: url(C:/DEV/StudyingProjects/Sia/UI/ok.png);
+    min-width: 40px;
+    min-height: 40px;
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+
+QPushButton:flat {
+    border: none; /* no border for a flat push button */
+}
+
+QPushButton:default {
+    border-color: navy; /* make the default button prominent */
+}

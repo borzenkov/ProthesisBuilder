@@ -217,79 +217,17 @@ void project_point_onto_surface(Point_iterator &pi, Tree &surface_geometry_tree,
 }
 
 void CreateAdheringSurface(Direction_3 &direction, Vector_3 projection_vector, Polyhedron &prothesis_mesh,
-	Polyhedron &jaw_mesh, Polyhedron &rezult1, Polyhedron &rezult2)
+	Polyhedron &jaw_mesh, Polyhedron &adhering_triangles, Polyhedron &rezult1, Polyhedron &rezult2)
 {
-	std::vector<double> coordsOfFirstGroup;
-	std::vector<int>    trisOfFirstGroup;
-	std::vector<double> coordsOfSecondGroup;
-	std::vector<int>    trisOfSecondGroup;
-	std::vector<double> coordsOfThirdGroup;
-	std::vector<int>    trisOfThirdGroup;
-	std::vector<double> coordsOfFourthGroup;
-	std::vector<int>    trisOfFourthGroup;
-
-	int indexOfPointInFirstGroup = -1;
-	int indexOfPointInSecondGroup = -1;
-	int indexOfPointInThirdGroup = -1;
-	int indexOfPointInFourthGroup = -1;
-	Normal_vector normal_vector;
-	Vector_3 normal;
-	Halfedge_facet_circulator fc;
-	Plane_iterator pi = prothesis_mesh.facets_begin();
-	for (Facet_iterator fi = prothesis_mesh.facets_begin(); fi != prothesis_mesh.facets_end(); ++fi)
-	{
-		normal = normal_vector(*fi);
-		if (normal.direction() == direction)
-		{
-			fc = fi->facet_begin();
-			do
-			{
-				coordsOfFirstGroup.push_back(fc->vertex()->point().x());
-				coordsOfFirstGroup.push_back(fc->vertex()->point().y());
-				coordsOfFirstGroup.push_back(fc->vertex()->point().z());
-				trisOfFirstGroup.push_back(++indexOfPointInFirstGroup);
-			} while (++fc != fi->facet_begin());
-		}
-		else if (normal.direction() != -direction)
-		{
-			if (abs(normal * direction.vector()) < 0.001)
-			{
-				fc = fi->facet_begin();
-				do
-				{
-					coordsOfSecondGroup.push_back(fc->vertex()->point().x());
-					coordsOfSecondGroup.push_back(fc->vertex()->point().y());
-					coordsOfSecondGroup.push_back(fc->vertex()->point().z());
-					trisOfSecondGroup.push_back(++indexOfPointInSecondGroup);
-				} while (++fc != fi->facet_begin());
-			}
-			else if (normal * direction.vector() > 0)
-			{
-				fc = fi->facet_begin();
-				do
-				{
-					coordsOfFirstGroup.push_back(fc->vertex()->point().x());
-					coordsOfFirstGroup.push_back(fc->vertex()->point().y());
-					coordsOfFirstGroup.push_back(fc->vertex()->point().z());
-					trisOfFirstGroup.push_back(++indexOfPointInFirstGroup);
-				} while (++fc != fi->facet_begin());
-			}
-		}
-	}
-
-	polyhedron_builder<HalfedgeDS> builder1(coordsOfFirstGroup, trisOfFirstGroup);
-	rezult1.delegate(builder1);
-	polyhedron_builder<HalfedgeDS> builder2(coordsOfSecondGroup, trisOfSecondGroup);
-	rezult2.delegate(builder2);
 	// constructs AABB tree
 	Tree jaw_geometry_tree(jaw_mesh.facets_begin(), jaw_mesh.facets_end());
 	jaw_geometry_tree.accelerate_distance_queries();
 	std::cout << "AB started" << std::endl;
 	jaw_geometry_tree.build();
 	std::cout << "AB ended" << std::endl;
-	for (Point_iterator pi1 = rezult1.points_begin(); pi1 != rezult1.points_end(); pi1++)
+	for (Point_iterator pi1 = adhering_triangles.points_begin(); pi1 != adhering_triangles.points_end(); pi1++)
 	{
-		for (Point_iterator pi2 = rezult2.points_begin(); pi2 != rezult2.points_end(); pi2++)
+		for (Point_iterator pi2 = prothesis_mesh.points_begin(); pi2 != prothesis_mesh.points_end(); pi2++)
 		{
 			if (pi1->x() == pi2->x() && pi1->y() == pi2->y() && pi1->z() == pi2->z())
 			{
@@ -297,46 +235,134 @@ void CreateAdheringSurface(Direction_3 &direction, Vector_3 projection_vector, P
 			}
 		}
 	}
-	get_projection_surface(rezult1, jaw_geometry_tree, projection_vector);
+	//std::vector<double> coordsOfFirstGroup;
+	//std::vector<int>    trisOfFirstGroup;
+	//std::vector<double> coordsOfSecondGroup;
+	//std::vector<int>    trisOfSecondGroup;
+	//std::vector<double> coordsOfThirdGroup;
+	//std::vector<int>    trisOfThirdGroup;
+	//std::vector<double> coordsOfFourthGroup;
+	//std::vector<int>    trisOfFourthGroup;
+
+	//int indexOfPointInFirstGroup = -1;
+	//int indexOfPointInSecondGroup = -1;
+	//int indexOfPointInThirdGroup = -1;
+	//int indexOfPointInFourthGroup = -1;
+	//Normal_vector normal_vector;
+	//Vector_3 normal;
+	//Halfedge_facet_circulator fc;
+	//Plane_iterator pi = prothesis_mesh.facets_begin();
+	//for (Facet_iterator fi = prothesis_mesh.facets_begin(); fi != prothesis_mesh.facets_end(); ++fi)
+	//{
+	//	normal = normal_vector(*fi);
+	//	if (normal.direction() == direction)
+	//	{
+	//		fc = fi->facet_begin();
+	//		do
+	//		{
+	//			coordsOfFirstGroup.push_back(fc->vertex()->point().x());
+	//			coordsOfFirstGroup.push_back(fc->vertex()->point().y());
+	//			coordsOfFirstGroup.push_back(fc->vertex()->point().z());
+	//			trisOfFirstGroup.push_back(++indexOfPointInFirstGroup);
+	//		} while (++fc != fi->facet_begin());
+	//	}
+	//	else if (normal.direction() != -direction)
+	//	{
+	//		if (abs(normal * direction.vector()) < 0.001)
+	//		{
+	//			fc = fi->facet_begin();
+	//			do
+	//			{
+	//				coordsOfSecondGroup.push_back(fc->vertex()->point().x());
+	//				coordsOfSecondGroup.push_back(fc->vertex()->point().y());
+	//				coordsOfSecondGroup.push_back(fc->vertex()->point().z());
+	//				trisOfSecondGroup.push_back(++indexOfPointInSecondGroup);
+	//			} while (++fc != fi->facet_begin());
+	//		}
+	//		else if (normal * direction.vector() > 0)
+	//		{
+	//			fc = fi->facet_begin();
+	//			do
+	//			{
+	//				coordsOfFirstGroup.push_back(fc->vertex()->point().x());
+	//				coordsOfFirstGroup.push_back(fc->vertex()->point().y());
+	//				coordsOfFirstGroup.push_back(fc->vertex()->point().z());
+	//				trisOfFirstGroup.push_back(++indexOfPointInFirstGroup);
+	//			} while (++fc != fi->facet_begin());
+	//		}
+	//	}
+	//}
+
+	/*polyhedron_builder<HalfedgeDS> builder1(coordsOfFirstGroup, trisOfFirstGroup);
+	rezult1.delegate(builder1);
+	polyhedron_builder<HalfedgeDS> builder2(coordsOfSecondGroup, trisOfSecondGroup);
+	rezult2.delegate(builder2);*/
+	//// constructs AABB tree
+	//Tree jaw_geometry_tree(jaw_mesh.facets_begin(), jaw_mesh.facets_end());
+	//jaw_geometry_tree.accelerate_distance_queries();
+	//std::cout << "AB started" << std::endl;
+	//jaw_geometry_tree.build();
+	//std::cout << "AB ended" << std::endl;
+	//for (Point_iterator pi1 = rezult1.points_begin(); pi1 != rezult1.points_end(); pi1++)
+	//{
+	//	for (Point_iterator pi2 = rezult2.points_begin(); pi2 != rezult2.points_end(); pi2++)
+	//	{
+	//		if (pi1->x() == pi2->x() && pi1->y() == pi2->y() && pi1->z() == pi2->z())
+	//		{
+	//			project_point_onto_surface(pi2, jaw_geometry_tree, projection_vector);
+	//		}
+	//	}
+	//}
+	//get_projection_surface(rezult1, jaw_geometry_tree, projection_vector);
 }
 
-//void main(int argc, char * argv[])
-//{
-//	// decode parameters
-//	if (argc - 1 != 2)
-//	{
-//		std::cerr << "Usage: " << argv[0] << " input_file.off" << std::endl;
-//	}
-//
-//	// File name is:
-//	const char* input_filename_prothesis = argv[1];
-//	const char* input_filename_jaw = argv[2];
-//
-//	// Read the mesh
-//	Polyhedron prothesis;
-//	read_polyhedron_from_off_file(input_filename_prothesis, prothesis);
-//
-//	Polyhedron jaw;
-//	read_polyhedron_from_off_file(input_filename_jaw, jaw);
-//
-//	Polyhedron rezult1;
-//	Polyhedron rezult2;
-//	Polyhedron rezult3;
-//	Polyhedron rezult4;
-//
-//	Direction_3 direction(0, 0, -1);
-//	Vector_3 projection_vector(0.2, 0.2, -0.9);
-//	CreateAdheringSurface(direction, projection_vector, prothesis, jaw, rezult1, rezult2);
-//	std::ofstream os;
-//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult1.off");
-//	os << rezult1;
-//	os.close();
-//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult2.off");
-//	os << rezult2;
-//	os.close();
-//	os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult3.off");
-//	os << rezult3;
-//	os.close();
-//
-//	std::cout << "Done";
-//}
+void main(int argc, char * argv[])
+{
+	//// decode parameters
+	//if (argc - 1 != 2)
+	//{
+	//	std::cerr << "Usage: " << argv[0] << " input_file.off" << std::endl;
+	//}
+
+	// File name is:
+	/*const char* input_filename_prothesis = argv[1];
+	const char* input_filename_jaw = argv[2];*/
+
+	const char* input_filename_prothesis = "C:/FILES/ProthesisBuilder/INPUT/template_1_remeshed.off";
+	const char* input_filename_adhering_triangles = "C:/FILES/ProthesisBuilder/INPUT/template_1_remeshed_adhering_triangles.off";
+	const char* input_filename_jaw = "C:/FILES/ProthesisBuilder/INPUT/Pegashev_geometry.off";
+
+	// Read the mesh
+	Polyhedron prothesis;
+	read_polyhedron_from_off_file(input_filename_prothesis, prothesis);
+
+	Polyhedron adhering_triangles;
+	read_polyhedron_from_off_file(input_filename_adhering_triangles, adhering_triangles);
+
+	Polyhedron jaw;
+	read_polyhedron_from_off_file(input_filename_jaw, jaw);
+
+	Polyhedron rezult1;
+	Polyhedron rezult2;
+	Polyhedron rezult3;
+	Polyhedron rezult4;
+
+	Point_3 A(-62.6549, 91.2606, 55.6846);
+	Point_3 B(-58.0058, 92.1253, 56.3937);
+	Vector_3 c = B - A;
+	Direction_3 direction(c);
+	Vector_3 projection_vector(c);
+	CreateAdheringSurface(direction, projection_vector, prothesis, jaw, adhering_triangles, rezult1, rezult2);
+	std::ofstream os;
+	os.open("C:/FILES/ProthesisBuilder/OUTPUT/HopeHey.off");
+	os << prothesis;
+	os.close();
+	//os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult2.off");
+	//os << rezult2;
+	//os.close();
+	//os.open("C:/FILES/ProthesisBuilder/OUTPUT/rezult3.off");
+	//os << rezult3;
+	//os.close();
+
+	std::cout << "Done";
+}
